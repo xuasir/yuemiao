@@ -80,7 +80,7 @@ module.exports = async function main(config, depaVaccId) {
             console.error(allMonth);
             // retry ?
           }
-          await sleep(1000);
+          await sleep(500);
         }
       } else {
         console.info(`获取票证失败`);
