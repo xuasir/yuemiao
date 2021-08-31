@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
+    "node-schedule": "^2.0.0",
     "request": "^2.88.2",
     "yargs-parser": "^20.2.9"
   }

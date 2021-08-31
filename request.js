@@ -20,7 +20,11 @@ const request = (url, opts) => {
           reject(err);
           return;
         }
-        resolve(JSON.parse(res.body));
+        try {
+          resolve(JSON.parse(res.body));
+        } catch (error) {
+          resolve(res.body);
+        }
       }
     );
   });

@@ -67,6 +67,7 @@ module.exports = async function main(config, depaVaccId) {
                 } else {
                   console.log(res);
                   console.log(`${subscribeDate}-${subscirbeTime} 预约失败`);
+                  await sleep(50);
                 }
               }
             } else {
@@ -95,3 +96,7 @@ module.exports = async function main(config, depaVaccId) {
     console.log(error);
   }
 };
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(() => resolve(), ms));
+}
