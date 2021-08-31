@@ -15,21 +15,22 @@ module.exports = async function main(config, depaVaccId) {
     let ticket;
     let iteminfo = await getItemInfo(depaVaccId);
     if (iteminfo?.data?.items?.length > 0) {
-      // ok
-      iteminfo = iteminfo.data;
-      console.info(`获取接种点 ${iteminfo?.departmentName} 成功`);
-      // 查询是否可以订阅和票证
-      const sub = await isCanSub({
-        id: depaVaccId,
-        depaCode: iteminfo.departmentCode,
-        vaccineCode,
-      });
-      if (sub?.data?.ticket) {
-        // 保存票证;
-        ticket = sub?.data?.ticket;
-        console.info(`获取接种点票证 ${ticket} 成功`);
-        // 获取所有可约天数
-        while (true) {
+      while (true) {
+        // ok
+        iteminfo = iteminfo.data;
+        console.info(`获取接种点 ${iteminfo?.departmentName} 成功`);
+        // 查询是否可以订阅和票证
+        const sub = await isCanSub({
+          id: depaVaccId,
+          depaCode: iteminfo.departmentCode,
+          vaccineCode,
+        });
+        if (sub?.data?.ticket) {
+          // 保存票证;
+          ticket = sub?.data?.ticket;
+          console.info(`获取接种点票证 ${ticket} 成功`);
+          // 获取所有可约天数
+          // while (true) {
           const allMonth = await findAllMonth({
             depaCode: iteminfo.departmentCode,
             departmentVaccineId: iteminfo.departmentVaccineId,
@@ -80,13 +81,13 @@ module.exports = async function main(config, depaVaccId) {
             console.error(allMonth);
             // retry ?
           }
-          await sleep(500);
+          // }
+        } else {
+          console.info(`获取票证失败`);
+          console.error(ticket);
+          // retry ?
         }
-      } else {
-        console.info(`获取票证失败`);
-        console.error(ticket);
-        // retry ?
-        return;
+        await sleep(500);
       }
     } else {
       console.info(`获取接种点信息失败`);
