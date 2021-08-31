@@ -72,15 +72,15 @@ module.exports = async function main(config, depaVaccId) {
                   }
                 }
               } else {
-                console.log(`${subscribeDate} 无可预约时间，50毫秒后重试`);
+                console.log(`${subscribeDate} 无可预约时间`);
               }
             }
           } else {
-            console.info(`本月无可预约天数，50毫秒后重试`);
+            console.info(`本月无可预约天数，1秒后重试`);
             console.error(allMonth);
             // retry ?
           }
-          await sleep(50);
+          await sleep(1000);
         }
       } else {
         console.info(`获取票证失败`);
