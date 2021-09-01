@@ -17,8 +17,8 @@ module.exports = async function main(config, depaVaccId) {
     if (iteminfo?.data?.items?.length > 0) {
       // ok
       iteminfo = iteminfo.data;
+      console.info(`获取接种点 ${iteminfo?.departmentName} 成功`);
       while (true) {
-        console.info(`获取接种点 ${iteminfo?.departmentName} 成功`);
         // 查询是否可以订阅和票证
         const sub = await isCanSub({
           id: depaVaccId,
@@ -48,29 +48,37 @@ module.exports = async function main(config, depaVaccId) {
               });
               if (time?.data?.times?.data?.length > 0) {
                 console.log(
-                  `尝试预约 ${subscribeDate} 中的 ${time.data.times.data.length} 个可用时间段`
+                  `[${new Date()}] 尝试预约 ${subscribeDate} 中的 ${
+                    time.data.times.data.length
+                  } 个可用时间段`
                 );
                 for (const { id: subscirbeTime } of time.data.times.data) {
                   // 尝试预约
-                  const res = await toSub({
-                    depaCode: iteminfo.departmentCode,
-                    departmentVaccineId: iteminfo.departmentVaccineId,
-                    vaccineCode,
-                    vaccineIndex,
-                    subscribeDate,
-                    subscirbeTime,
-                    ticket,
-                  });
-                  if (res.code == okCode) {
-                    console.info(
-                      `预约接种点 ${iteminfo?.departmentName} ${subscribeDate} 成功！！！`
-                    );
-                    return;
-                  } else {
-                    console.log(res);
-                    console.log(`${subscribeDate}-${subscirbeTime} 预约失败`);
-                    await sleep(50);
+                  let sum = 5;
+                  while (sum > 0) {
+                    const res = await toSub({
+                      depaCode: iteminfo.departmentCode,
+                      departmentVaccineId: iteminfo.departmentVaccineId,
+                      vaccineCode,
+                      vaccineIndex,
+                      subscribeDate,
+                      subscirbeTime,
+                      ticket,
+                    });
+                    if (res.code == okCode) {
+                      console.info(
+                        `预约接种点 ${iteminfo?.departmentName} ${subscribeDate} 成功！！！`
+                      );
+                      return;
+                    } else {
+                      console.log(res);
+                      console.log(
+                        `${subscribeDate}-${subscirbeTime} 预约失败正在重试`
+                      );
+                      sum--;
+                    }
                   }
+                  // await sleep(50);
                 }
               } else {
                 console.log(`${subscribeDate} 无可预约时间`);
@@ -87,7 +95,7 @@ module.exports = async function main(config, depaVaccId) {
           console.error(ticket);
           // retry ?
         }
-        await sleep(500);
+        // await sleep(500);
       }
     } else {
       console.info(`获取接种点信息失败`);
