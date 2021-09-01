@@ -19,31 +19,26 @@ if (args?.["4jia"]) {
 }
 
 let run = whileF;
-(async () => {
-  for (const id of baseConfig.depaVaccIds) {
-    await run(baseConfig, id);
-  }
-})();
 
 // if (args?.w) {
 //   run = whileF;
 // }
 
-// if (args?.i) {
-//   (async () => {
-//     for (const id of baseConfig.depaVaccIds) {
-//       await run(baseConfig, id);
-//     }
-//   })();
-// } else {
-//   console.log(`开始定时任务每三十秒，等待执行`);
-//   const rule = new nodeSchedule.RecurrenceRule();
-//   rule.second = [0, 15, 30, 45];
-//   nodeSchedule.scheduleJob(rule, () => {
-//     (async () => {
-//       for (const id of baseConfig.depaVaccIds) {
-//         await run(baseConfig, id);
-//       }
-//     })();
-//   });
-// }
+if (args?.i) {
+  (async () => {
+    for (const id of baseConfig.depaVaccIds) {
+      await run(baseConfig, id);
+    }
+  })();
+} else {
+  console.log(`开始定时任务每三十秒，等待执行`);
+  const rule = new nodeSchedule.RecurrenceRule();
+  rule.second = [0, 15, 30, 45];
+  nodeSchedule.scheduleJob(rule, () => {
+    (async () => {
+      for (const id of baseConfig.depaVaccIds) {
+        await run(baseConfig, id);
+      }
+    })();
+  });
+}

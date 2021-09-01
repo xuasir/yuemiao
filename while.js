@@ -38,7 +38,9 @@ module.exports = async function main(config, depaVaccId) {
             vaccIndex: vaccineIndex,
           });
           if (allMonth?.data?.dateList?.length > 0) {
-            for (const subscribeDate of allMonth.data.dateList) {
+            const dates =
+              allMonth.data.dateList?.reverse() || allMonth.data.dateList;
+            for (const subscribeDate of dates) {
               const time = await getAllTimes({
                 depaCode: iteminfo.departmentCode,
                 departmentVaccineId: iteminfo.departmentVaccineId,
@@ -52,7 +54,10 @@ module.exports = async function main(config, depaVaccId) {
                     time.data.times.data.length
                   } 个可用时间段`
                 );
-                for (const { id: subscirbeTime } of time.data.times.data) {
+                const daytimes = time.data.times.data.sort(
+                  (a, b) => Number(b?.maxSub || 0) - Number(a?.maxSub || 0)
+                );
+                for (const { id: subscirbeTime } of daytimes) {
                   // 尝试预约
                   let sum = 5;
                   while (sum > 0) {
@@ -71,14 +76,21 @@ module.exports = async function main(config, depaVaccId) {
                       );
                       return;
                     } else {
-                      console.log(res);
-                      console.log(
-                        `${subscribeDate}-${subscirbeTime} 预约失败正在重试`
-                      );
                       sum--;
+                      console.log(res);
+                      if (
+                        res?.code == "1101" &&
+                        res?.msg == "下单操作频繁,请稍后再试吧!"
+                      ) {
+                        console.log(`下单频繁睡眠500ms后再试`);
+                        await sleep(500);
+                      } else {
+                        console.log(
+                          `${subscribeDate}-${subscirbeTime} 预约失败正在重试`
+                        );
+                      }
                     }
                   }
-                  // await sleep(50);
                 }
               } else {
                 console.log(`${subscribeDate} 无可预约时间`);
@@ -95,7 +107,6 @@ module.exports = async function main(config, depaVaccId) {
           console.error(ticket);
           // retry ?
         }
-        // await sleep(500);
       }
     } else {
       console.info(`获取接种点信息失败`);
