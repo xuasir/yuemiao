@@ -84,7 +84,7 @@ module.exports = async function main(config, depaVaccId) {
                       console.log(
                         `${subscribeDate}-${subscirbeTime} 预约失败2s正在重试`
                       );
-                      await sleep(2000);
+                      await sleep(3000);
                     }
                   }
                 }
