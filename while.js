@@ -5,6 +5,7 @@ const {
   findAllMonth,
   toSub,
 } = require("./request.js");
+const moment = require("moment");
 
 const okCode = "0000";
 
@@ -50,7 +51,9 @@ module.exports = async function main(config, depaVaccId) {
               });
               if (time?.data?.times?.data?.length > 0) {
                 console.log(
-                  `[${new Date()}] 尝试预约 ${subscribeDate} 中的 ${
+                  `[sub:${moment(Date.now()).format(
+                    "YYYY-MM-DD-HH:mm:ss"
+                  )}] 尝试预约 ${subscribeDate} 中的 ${
                     time.data.times.data.length
                   } 个可用时间段`
                 );
@@ -78,17 +81,10 @@ module.exports = async function main(config, depaVaccId) {
                     } else {
                       sum--;
                       console.log(res);
-                      if (
-                        res?.code == "1101" &&
-                        res?.msg == "下单操作频繁,请稍后再试吧!"
-                      ) {
-                        console.log(`下单频繁睡眠500ms后再试`);
-                        await sleep(500);
-                      } else {
-                        console.log(
-                          `${subscribeDate}-${subscirbeTime} 预约失败正在重试`
-                        );
-                      }
+                      console.log(
+                        `${subscribeDate}-${subscirbeTime} 预约失败2s正在重试`
+                      );
+                      await sleep(2000);
                     }
                   }
                 }
@@ -103,8 +99,6 @@ module.exports = async function main(config, depaVaccId) {
           }
           // }
         } else {
-          console.info(`获取票证失败`);
-          console.error(ticket);
           // retry ?
         }
       }
