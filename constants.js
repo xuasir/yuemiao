@@ -20,5 +20,5 @@ module.exports = {
   },
   linkman_id: "17692841",
   userId: "19164750",
-  tk: "wxtoken:54df86352ee7c7fd44496763d81537f1_9803bc512c591f9c88c0d0687f6effb0",
+  tk: "wxtoken:54df86352ee7c7fd44496763d81537f1_e6cb8d9f07dbbdc96a764b3ef9b22b9b",
 };
