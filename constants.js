@@ -18,7 +18,7 @@ module.exports = {
     vaccineIndex: 1,
     depaVaccIds: [21280],
   },
-  linkman_id: "9271059",
-  userId: "10738861",
-  tk: "wxtoken:88aff3450ce810d1d7203aac66e5ed4a_aec80e330010b9ccf9442e26e785a4a0",
+  linkman_id: "9407617",
+  userId: "10873413",
+  tk: "wxtoken:2f271c366794cdce75b450149adfcf5e_af125516d3ddbb381bcb53fd7107e00a",
 };
