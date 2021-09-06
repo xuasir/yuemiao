@@ -1,5 +1,4 @@
 module.exports = {
-  month: "2021-09-01",
   _2jia: {
     id: 52,
     vaccineCode: 8806,
@@ -18,6 +17,7 @@ module.exports = {
     vaccineIndex: 1,
     depaVaccIds: [21280],
   },
+  month: "2021-09-01",
   linkman_id: "6637473",
   userId: "8160656",
   tk: "wxtoken:e90a22ef0b3cd24ecf74318ac12a50d0_76f634ca94ef35ab6ae0929f08a87acc",
