@@ -1,8 +1,8 @@
 const {
-  getItemInfo,
+  // getItemInfo,
   isCanSub,
   getAllTimes,
-  findAllMonth,
+  // findAllMonth,
   toSub,
 } = require("./request.js");
 const moment = require("moment");
@@ -50,7 +50,7 @@ module.exports = async function main(config, depaVaccId) {
             );
             for (const { id: subscirbeTime } of daytimes) {
               // 尝试预约
-              let sum = 3;
+              let sum = 2;
               while (sum > 0) {
                 const res = await toSub({
                   depaCode: departmentCode,

@@ -62,7 +62,7 @@ module.exports = async function main(config, depaVaccId) {
                 );
                 for (const { id: subscirbeTime } of daytimes) {
                   // 尝试预约
-                  let sum = 5;
+                  let sum = 2;
                   while (sum > 0) {
                     const res = await toSub({
                       depaCode: iteminfo.departmentCode,
