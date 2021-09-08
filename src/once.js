@@ -4,7 +4,7 @@ const {
   getAllTimes,
   findAllMonth,
   toSub,
-} = require("./request.js");
+} = require("../request.js");
 
 const okCode = "0000";
 

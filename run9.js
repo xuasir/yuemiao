@@ -1,15 +1,8 @@
-const {
-  // getItemInfo,
-  isCanSub,
-  getAllTimes,
-  // findAllMonth,
-  toSub,
-} = require("./request.js");
 const moment = require("moment");
 
 const okCode = "0000";
 
-module.exports = async function main(config, depaVaccId) {
+module.exports = async function main(request, config) {
   const {
     vaccineCode,
     vaccineIndex,
@@ -22,8 +15,8 @@ module.exports = async function main(config, depaVaccId) {
   try {
     let ticket;
     // 查询是否可以订阅和票证
-    const sub = await isCanSub({
-      id: depaVaccId,
+    const sub = await request.isCanSub({
+      id: departmentVaccineId,
       depaCode: departmentCode,
       vaccineCode,
     });
@@ -34,7 +27,7 @@ module.exports = async function main(config, depaVaccId) {
         // 保存票证;
         // 获取所有可约天数
         for (const subscribeDate of dates) {
-          const time = await getAllTimes({
+          const time = await request.getAllTimes({
             depaCode: departmentCode,
             departmentVaccineId,
             vaccCode: vaccineCode,
@@ -52,7 +45,7 @@ module.exports = async function main(config, depaVaccId) {
               // 尝试预约
               let sum = 2;
               while (sum > 0) {
-                const res = await toSub({
+                const res = await request.toSub({
                   depaCode: departmentCode,
                   departmentVaccineId,
                   vaccineCode,
@@ -67,12 +60,14 @@ module.exports = async function main(config, depaVaccId) {
                       "YYYY-MM-DD-HH:mm:ss"
                     )}]预约接种点 ${departmentName} ${subscribeDate} 成功！！！`
                   );
+                  console.log(res);
+                  console.log(`预约编号：${res?.data?.subNo}`);
                   return;
                 } else {
                   sum--;
                   console.log(res);
                   console.log(
-                    `${subscribeDate}-${subscirbeTime} 预约失败2s正在重试`
+                    `${subscribeDate}-${subscirbeTime} 预约失败3s正在重试`
                   );
                   await sleep(3000);
                 }
