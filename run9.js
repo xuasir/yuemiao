@@ -43,7 +43,7 @@ module.exports = async function main(request, config) {
             );
             for (const { id: subscirbeTime } of daytimes) {
               // 尝试预约
-              let sum = 2;
+              let sum = 1;
               while (sum > 0) {
                 const res = await request.toSub({
                   depaCode: departmentCode,
