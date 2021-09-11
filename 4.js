@@ -2,12 +2,12 @@ const nodeSchedule = require("node-schedule");
 const createRequest = require("./request");
 const whileRun = require("./run9");
 
-// t星
+// 颜星
 const reqeust = createRequest({
-  tk: "wxtoken:bd052f7aff88f07bc3c73acc57db1ae1_89c55db08237fbe93b194f0f9f302d7e",
-  linkman_id: "2434517",
+  tk: "wxtoken:3226396db2d1014ae42584c165b5b201_a922b05d9b3376a7303105b5f78f2c01",
+  linkman_id: "18365969",
   month: "2021-09-01",
-  userId: "4402013",
+  userId: "19972693",
 });
 
 const baseConfig = {
@@ -17,11 +17,11 @@ const baseConfig = {
   departmentCode: "4301020013",
   departmentVaccineId: "21280",
   departmentName: "疾控中心",
-  dates: ["2021-09-15", "2021-09-14", "2021-09-13", "2021-09-16"],
+  dates: ["2021-09-17", "2021-09-16"],
 };
 
-whileRun(reqeust, baseConfig);
-// console.log(`定时任务开启`);
-// nodeSchedule.scheduleJob("59 59 8 * * *", () => {
-//   whileRun(reqeust, baseConfig);
-// });
+// whileRun(reqeust, baseConfig);
+console.log(`定时任务开启`);
+nodeSchedule.scheduleJob("59 59 8 * * *", () => {
+  whileRun(reqeust, baseConfig);
+});

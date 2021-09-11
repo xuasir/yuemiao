@@ -2,11 +2,12 @@ const nodeSchedule = require("node-schedule");
 const createRequest = require("./request");
 const whileRun = require("./run9");
 
+// 菜婉容
 const reqeust = createRequest({
-  tk: "wxtoken:8e7a5dd7ee7a545f9a2bd13c2c703ba1_fe1365cdd22a6574b8d65f912d2af856",
-  linkman_id: "7022656",
+  tk: "wxtoken:9b5fa3afac10a424c5f6222134a5e08b_0632621c37398cfa18e0a26212f8c6fe",
+  linkman_id: "2434685",
   month: "2021-09-01",
-  userId: "8444313",
+  userId: "4402163",
 });
 
 const baseConfig = {
@@ -16,7 +17,7 @@ const baseConfig = {
   departmentCode: "4301020013",
   departmentVaccineId: "21280",
   departmentName: "疾控中心",
-  dates: ["2021-09-15", "2021-09-14"],
+  dates: ["2021-09-17", "2021-09-16"],
 };
 
 // whileRun(reqeust, baseConfig);
