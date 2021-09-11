@@ -22,6 +22,6 @@ const baseConfig = {
 
 // whileRun(reqeust, baseConfig);
 console.log(`定时任务开启`);
-nodeSchedule.scheduleJob("59 59 8 * * *", () => {
+nodeSchedule.scheduleJob("0 0 9 * * *", () => {
   whileRun(reqeust, baseConfig);
 });
