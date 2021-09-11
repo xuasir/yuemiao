@@ -17,7 +17,7 @@ const baseConfig = {
   departmentCode: "4301020013",
   departmentVaccineId: "21280",
   departmentName: "疾控中心",
-  dates: ["2021-09-16", "2021-09-17"],
+  dates: ["2021-09-18", "2021-09-17"],
 };
 
 // whileRun(reqeust, baseConfig);
